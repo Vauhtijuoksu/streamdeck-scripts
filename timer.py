@@ -29,7 +29,7 @@ if __name__ == "__main__":
         quit()
 
     parser = argparse.ArgumentParser(description="Script for vauhtijuoksu timer")
-    parser.add_argument("option", help="start/stop/reset", type=str)
+    parser.add_argument("option", help="start/stop/reset/continue", type=str)
 
     args = parser.parse_args()
 
@@ -42,6 +42,16 @@ if __name__ == "__main__":
                 }
             ]
             })
+
+    if args.option == 'continue':
+        patchStreamMetadata(config, {
+            'timers':[
+                {
+                    'end_time': None
+                }
+            ]
+            })
+
     elif args.option == 'stop':
         patchStreamMetadata(config, {
             'timers':[
