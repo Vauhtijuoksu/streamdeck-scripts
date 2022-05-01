@@ -43,7 +43,7 @@ if __name__ == "__main__":
             ]
             })
 
-    if args.option == 'continue':
+    elif args.option == 'continue':
         patchStreamMetadata(config, {
             'timers':[
                 {
