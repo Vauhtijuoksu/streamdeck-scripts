@@ -50,12 +50,13 @@ if __name__ == "__main__":
             }, timers['2'])
 
     elif args.option == 'startboth':
+        timestamp = getTimestamp()
         patchTimer(config, {
-                'start_time': getTimestamp(),
+                'start_time': timestamp,
                 'end_time': None
             }, timers['1'])
         patchTimer(config, {
-                'start_time': getTimestamp(),
+                'start_time': timestamp,
                 'end_time': None
             }, timers['2'])
 
