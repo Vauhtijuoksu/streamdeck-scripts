@@ -5,7 +5,7 @@ import requests
 import time
 import os
 
-time_api_url = "http://worldtimeapi.org/api/timezone/utc"
+time_api_url = "https://api.dev.vauhtijuoksu.fi/stream-metadata"
 
 
 def get_current_offset():
@@ -14,7 +14,11 @@ def get_current_offset():
     r = requests.get(f'{time_api_url}')
     duration = time.time() - start
     if r.status_code == 200:
-        servertime = datetime.fromisoformat(json.loads(r.content)["datetime"])
+        timestr = json.loads(r.content)["server_time"]
+        timestr = timestr[:timestr.find(".")+4] + timestr[len(timestr)-6:]
+        # "2022-04-07T08:53:42.06717+02:00"
+        # '2024-04-23T18:22:25.18142809+03:00'
+        servertime = datetime.strptime(timestr, "%Y-%m-%dT%H:%M:%S.%f%z")
         diff = (pc_time - servertime).total_seconds() + duration/2
         return diff
     else:
